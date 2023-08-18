@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nestsjs-prometheus-grafana
+  name: nestsjs-prometheus-grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestsjs-prometheus-grafana
+  template:
+    metadata:
+      labels:
+        app: nestsjs-prometheus-grafana
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: /metrics
+        prometheus.io/port: '3000'
+    spec:
+      containers:
+      - image: nestjs-prometheus-grafana
+        name: nestjs-prometheus-grafana
+        ports:
+        - containerPort: 8080
